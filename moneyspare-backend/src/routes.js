@@ -12,6 +12,9 @@ routes.get('/', (req, res) => {
 routes.get('/users', UserController.index);
 
 routes.post('/users', UserController.store);
+
+routes.get('/expenses', ExpenseController.index);
+
 routes.post('/users/:user_id/expenses', ExpenseController.store);
 
 module.exports = routes;
