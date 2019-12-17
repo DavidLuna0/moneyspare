@@ -1,5 +1,7 @@
 const express = require('express');
+
 const UserController = require('./app/controllers/UserController');
+const ExpenseController = require('./app/controllers/ExpenseController');
 
 const routes = express.Router();
 
@@ -10,5 +12,6 @@ routes.get('/', (req, res) => {
 routes.get('/users', UserController.index);
 
 routes.post('/users', UserController.store);
+routes.post('/users/:user_id/expenses', ExpenseController.store);
 
 module.exports = routes;

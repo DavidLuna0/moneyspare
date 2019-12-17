@@ -20,7 +20,6 @@ module.exports = {
       },
       description: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       value: {
         type: Sequelize.DOUBLE,
