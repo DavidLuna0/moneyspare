@@ -7,6 +7,13 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
       },
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'users', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
       category: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -21,6 +28,10 @@ module.exports = {
       },
       type: {
         type: Sequelize.TINYINT,
+        allowNull: false,
+      },
+      paid: {
+        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
       created_at: {
