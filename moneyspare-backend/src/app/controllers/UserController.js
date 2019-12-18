@@ -2,12 +2,18 @@ const User = require('../models/User');
 const CipherService = require('../services/CipherService');
 
 module.exports = {
-  async index(req, res) {
+  async findAll(req, res) {
     const users = await User.findAll();
     return res.json(users);
   },
+  async findById(req, res) {
+    // eslint-disable-next-line camelcase
+    const user_id = +req.params.user_id;
+    const user = await User.findByPk(user_id);
+    return res.json(user);
+  },
 
-  async store(req, res) {
+  async save(req, res) {
     const { name, email, password } = req.body;
     CipherService.passCipher(password).then(pass => {
       User.create({ name, email, password: pass }).then(result => {
@@ -16,17 +22,19 @@ module.exports = {
     });
   },
 
-  async login(req, res) {
-    const { email, password } = req.body;
-    User.findOne({ where: { email } })
-      .then(result => {
-        if (CipherService.passHashCompare(password, result.password)) {
-          return res.json(result);
-        }
-        return res.status(400).json(result);
-      })
-      .catch(err => {
-        return res.status(400).json(err.message);
-      });
+  async update(req, res) {
+    // eslint-disable-next-line camelcase
+    const user_id = +req.params.user_id;
+    const { name, email } = req.body;
+    User.findByPk(user_id).then(user => {
+      user
+        .update({ name, email })
+        .then(result => {
+          return res.status(201).json(result);
+        })
+        .catch(err => {
+          return res.status(400).json(err.message);
+        });
+    });
   },
 };
