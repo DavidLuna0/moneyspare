@@ -7,6 +7,18 @@ module.exports = {
     return res.json(expenses);
   },
 
+  async findByUser(req, res) {
+    // eslint-disable-next-line camelcase
+    const user_id = +req.params.user_id;
+    await Expense.findAll({ where: { user_id } })
+      .then(result => {
+        return res.json(result);
+      })
+      .catch(err => {
+        return res.status(400).json(err.message);
+      });
+  },
+
   async store(req, res) {
     // eslint-disable-next-line camelcase
     const user_id = +req.params.user_id;

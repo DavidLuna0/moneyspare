@@ -17,4 +17,8 @@ routes.get('/expenses', ExpenseController.index);
 
 routes.post('/users/:user_id/expenses', ExpenseController.store);
 
+routes.get('/users/:user_id/expenses', ExpenseController.findByUser);
+
+routes.post('/login', UserController.login);
+
 module.exports = routes;
